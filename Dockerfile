@@ -2,6 +2,7 @@ FROM registry.access.redhat.com/ubi9/nodejs-20:latest AS build-env
 WORKDIR /app
 RUN npm init -f && npm install
 COPY server.js .
+COPY index.html .
 
 # Use a small distroless image for as runtime image
 FROM gcr.io/distroless/nodejs20-debian12

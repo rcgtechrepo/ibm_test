@@ -24,47 +24,55 @@
             text-align:center;
             color:forestgreen;
     }
-    cursor: pointer;
-}
-tr.shown td.details-control {
-    text-align:center; 
-    color:red;
-}
+    
+    tr.shown td.details-control {
+        text-align:center;
+        color:rgba(76, 161, 156);
+    }
 
-.dataTables_info {
+    .dataTables_info {
+        position: relative;
+        top: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+    /*   border-radius: 50% !important;*/
+    padding: 0.5em 0.9em !important;
+    border: 1px solid #ccc;
     position: relative;
-    top: 10px;
-}
+    left: 80%;
+    }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-/*   border-radius: 50% !important;*/
-   padding: 0.5em 0.9em !important;
-   border: 1px solid #ccc;
-   position: relative;
-   left: 80%;
-}
+    .dataTables_filter{
+        float: right;
+        position: relative;
+        bottom: 10px;
+    }
 
-.dataTables_filter{
-    float: right;
-    position: relative;
-    bottom: 10px;
-}
+    .dataTables_length, option, select, input{
+        color: #999;
+        font-size: 11px;
+        outline: none;
+    }
 </style>
-<body>
-    <table width="100%" class="display" id="example" cellspacing="0">
-        <thead>
+<body style="margin: 0px; padding: 0px">
+    <div style="padding: 10px; width: 100%; box-shadow: 0 4px 2px -2px #ccc;"><img heigth=49 width=200 src="logo.png"></div>
+    <br>
+    <div style="padding:5px">
+        <div style="padding:15px">
+      <table width="100%" class="display" id="example" cellspacing="0">
+         <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Salary</th>
+               <th></th>
+               <th>Name</th>
+               <th>Position</th>
+               <th>Office</th>
+               <th>Salary</th>
             </tr>
-        </thead>
-       <hr>
-    </table>
-
-</body>
+         </thead>
+      </table>
+    </div>
+   </body>
 </html>
 <script>
 $(document).ready(function () {
@@ -72,6 +80,10 @@ $(document).ready(function () {
          var table = $('#example').DataTable({
              "data": testdata.data,
              select:"single",
+            "oLanguage": {
+                "sLengthMenu": "Your _MENU_ text111",
+                "sSearch":         "Buscar:&nbsp;&nbsp;&nbsp;"
+            },
              "columns": [
                  {
                      "className": 'details-control',
@@ -79,7 +91,7 @@ $(document).ready(function () {
                      "data": null,
                      "defaultContent": '',
                      "render": function () {
-                         return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+                         return '<i style="color:rgba(76, 161, 156)" class="fa fa-plus-square" aria-hidden="true"></i>';
                      },
                      width:"15px"
                  },
@@ -90,6 +102,7 @@ $(document).ready(function () {
              ],
              "order": [[1, 'asc']]
          });
+        $('.dataTables_length').addClass('bs-select');
 
          // Add event listener for opening and closing details
          $('#example tbody').on('click', 'td.details-control', function () {
@@ -118,22 +131,25 @@ $(document).ready(function () {
                  e.preventDefault();
              }
          });
-
-
-table.on('draw.dt', function() {
-    $(".paginate_button[data-dt-idx='" + (table.page() + 1) + "']").css("background-color", "red")
-    $(".paginate_button[data-dt-idx='" + (table.page() + 1) + "']").css("color", "#fff")
-    console.log(table.page())
-});
+         
+        $(".paginate_button[data-dt-idx='" + "1" + "']").css("background-color", "rgba(76, 161, 156)");
+        $(".paginate_button[data-dt-idx='" + "1" + "']").css("color", "#fff");
+        
+        table.on('draw.dt', function() {
+            $(".paginate_button[data-dt-idx='" + (table.page() + 1) + "']").css("background-color", "rgba(76, 161, 156)")
+            $(".paginate_button[data-dt-idx='" + (table.page() + 1) + "']").css("color", "#fff")
+            console.log(table.page())
+        });
+        
         $('.paginate_button').on('click', function () {
-        console.log($(this).attr('data-dt-idx'))
-        $(this).css("background-color", "red")
-     });
+            console.log($(this).attr('data-dt-idx'))
+            $(this).css("background-color", "rgba(76, 161, 156)")
+        });
 
      });
 
     function format(d){
-        
+       
          // `d` is the original data object for the row
          return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
              '<tr>' +

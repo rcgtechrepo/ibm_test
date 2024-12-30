@@ -3,6 +3,8 @@ WORKDIR /app
 RUN npm init -f && npm install
 COPY server.js .
 COPY index.html .
+COPY logo.png .
+
 
 # Use a small distroless image for as runtime image
 FROM gcr.io/distroless/nodejs20-debian12
